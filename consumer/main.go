@@ -50,6 +50,7 @@ func main() {
 			}
 
 			fmt.Println("Received message:", newPayload.Email)
+			fmt.Println("Received message:", newPayload.URL)
 		}
 	}()
 
