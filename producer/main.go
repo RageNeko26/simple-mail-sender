@@ -2,8 +2,14 @@ package main
 
 import (
 	"fmt"
+	"encoding/json"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
+
+type Payload struct {
+	Email string `json:"email"`
+	URL string `json:"url"`
+}
 
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -40,14 +46,21 @@ func main() {
 		panic(err)
 	}
 
+	newPayload := Payload{
+		Email: "test@tester.com",
+		URL: "http://contoh.com",
+	}
+
+	marshalled, _ := json.Marshal(newPayload) 
+
 	err = ch.Publish(
 		"",
 		"TestQueue",
 		false,
 		false,
 		amqp.Publishing{
-			ContentType: "text/plain",
-			Body: []byte("Hello from RabbitMQ"),
+			ContentType: "application/json",
+			Body: marshalled,
 		},
 	)
 
