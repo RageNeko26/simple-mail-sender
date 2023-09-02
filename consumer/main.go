@@ -36,7 +36,7 @@ func main() {
 
 	go func() {
 		for d := range msg {
-			fmt.Println("Received message:", d.Body)
+			fmt.Println("Received message:", string(d.Body))
 		}
 	}()
 
