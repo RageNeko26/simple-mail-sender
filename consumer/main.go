@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"encoding/json"
 )
-
+// Create struct object
 type Payload struct {
 	Email string `json:"email"`
 	URL string `json:"url"`
@@ -42,7 +42,9 @@ func main() {
 
 	go func() {
 		for d := range msg {
+			// Create instance of Object
 			var newPayload Payload
+			// Convert bytes to Go Object struct
 			errUnmarshal := json.Unmarshal(d.Body, &newPayload)
 			
 			if errUnmarshal != nil {
