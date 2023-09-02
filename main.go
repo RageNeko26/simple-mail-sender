@@ -17,4 +17,12 @@ func main() {
 
 	fmt.Println("Connection to RabbitMQ is success!")
 
+	ch, err := conn.Channel()
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer ch.Close()
+
 }
